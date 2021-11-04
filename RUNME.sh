@@ -16,12 +16,8 @@
 # through ansible.  However, that means I need access to the ansible repository,
 # which is *private*.   So, I need my ssh keys to access that private repository.  
 # However, to get those keys I need git and openssh.  
-# 
-# Accordingly, the order here is:
-#  Install prerequites of git and openssh.  We do ansible while we are at it.
-#  Get my ssh keys.
-#  Get the ansible repository.
-#  Everything else is in ansible.
+#  
+# See the comments below for details.
 #
 # Perhaps a better way is to install just ansible, do an ansible pull, and they do
 # the rest.  In particular, using ansible to install ssh keys *remotely* is very
@@ -111,19 +107,30 @@ else
     echo "*not* running as root"
 fi
 
+# First install ssh and git
 if [ "$EUID" -eq 0 ]; then 
     install_prerequisites
 fi
 
+# Need my ssh keys.  Note, this might be run as root or as rcpaffenroth
+# and either is ok
 get_ssh_keys
-get_vault_keys
+# Checkout the ansible stuff.  Again, this might either be as root or as rcpaffenroth
 checkout_ansible_repository
 
+# We how have ansible ready to go, and can do the system.
+# Internally, this runs as whatever it needs to run as.
 if [ "$EUID" -eq 0 ]; then 
     ansible_system_setup
 fi
 
-ansible_rcpaffenroth_setup
-
-source ~/.bashrc
+# Now, the root stuff is done.  We can now setup rcpaffenroth.  
+# You might need to run this *twice*  Once as root and once as rcpaffenroth
+if [ "$EUID" -ne 0 ]; then 
+    get_vault_keys
+    eval `ssh-agent`
+    ssh-add
+    ansible_rcpaffenroth_setup
+    source ~/.bashrc
+fi
 
