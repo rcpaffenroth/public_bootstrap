@@ -116,6 +116,7 @@ if [ "$EUID" -eq 0 ]; then
 fi
 
 get_ssh_keys
+get_vault_keys
 checkout_ansible_repository
 
 if [ "$EUID" -eq 0 ]; then 
