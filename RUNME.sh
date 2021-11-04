@@ -6,14 +6,11 @@
 #  
 #  or
 #
-#  wget bit.ly/rcp_run_me
+#  wget bit.ly/RCPrunme
 #
 #  To get started from a really clean system
 #
-#  apt-get update && apt-get install wget && wget bit.ly/rcp_run_me && bash ./rcp_run_me
-
-#  apt-get update && apt-get install -y wget && wget https://bitbucket.org/rcpaffenroth/ansible/raw/HEAD/bin/RUNME.sh && bash ./RUNME.sh
-
+#  apt-get update && apt-get install -y wget && wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/RUNME.sh && bash ./RUNME.sh
 
 # This is a subtle order dependence here.  I would like to run as much as possible
 # through ansible.  However, that means I need access to the ansible repository,
