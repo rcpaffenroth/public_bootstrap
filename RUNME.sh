@@ -74,6 +74,17 @@ function get_ssh_keys() {
     fi
 }
 
+function get_vault_keys() {
+    # Get my vault key
+    if [ -f "$HOME/.rcp/ansible-vault" ]; then
+        echo "Using existing .rcp/ansible-vault"
+    else
+        mkdir $HOME/.rcp
+        chmod 700 $HOME/.rcp
+        rsync -av rcpaffenroth@haven.rcpaffenroth.org:.rcp/ansible-vault .rcp/
+    fi
+}
+
 function checkout_ansible_repository() {
     # Get ansible repository, since that is where the ansible playbooks are
     if [ -d "$HOME/projects/ansible" ]; then
