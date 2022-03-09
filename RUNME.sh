@@ -77,7 +77,7 @@ function get_vault_keys() {
     else
         mkdir $HOME/.rcp
         chmod 700 $HOME/.rcp
-        rsync -av rcpaffenroth@haven.rcpaffenroth.org:.rcp/ansible-vault .rcp/
+        rsync -av rcpaffenroth@haven.rcpaffenroth.org:.rcp/ansible-vault $HOME/.rcp/
     fi
 }
 
@@ -121,6 +121,7 @@ checkout_ansible_repository
 # We how have ansible ready to go, and can do the system.
 # Internally, this runs as whatever it needs to run as.
 if [ "$EUID" -eq 0 ]; then 
+    get_vault_keys
     ansible_system_setup
 fi
 
