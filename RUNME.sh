@@ -44,6 +44,7 @@ function install_prerequisites() {
     if hash ansible 2>/dev/null; then
         echo "Using existing ansible"
     else
+		export DEBIAN_FRONTEND=noninteractive
         apt update
         apt install -y software-properties-common
         # To get the newest version
