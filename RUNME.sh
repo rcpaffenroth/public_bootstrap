@@ -61,7 +61,7 @@ function get_ssh_keys() {
         echo "Using existing .ssh"
     else
         rm -rf $HOME/.ssh.bak $HOME/ssh 
-        git clone rcpaffenroth@haven.rcpaffenroth.org:repos/ssh.git $HOME/ssh
+        git clone rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh.git $HOME/ssh
         mv $HOME/.ssh $HOME/.ssh.bak
         mv $HOME/ssh $HOME/.ssh
         sh $HOME/.ssh/permissions.sh
@@ -77,7 +77,7 @@ function get_vault_keys() {
     else
         mkdir $HOME/.rcp
         chmod 700 $HOME/.rcp
-        rsync -av rcpaffenroth@haven.rcpaffenroth.org:.rcp/ansible-vault $HOME/.rcp/
+        rsync -av rcpaffenroth@moc-gateway.rcpaffenroth.org:.rcp/ansible-vault $HOME/.rcp/
     fi
 }
 
