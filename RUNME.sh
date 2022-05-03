@@ -54,20 +54,22 @@ function install_prerequisites() {
 }
 
 function get_ssh_keys() {
-    # Setup ssh to not care about key checking
-    export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no"
-
     # Get my ssh keys
     if [ -f "$HOME/.ssh/id_rsa" ]; then
         echo "Using existing .ssh"
     else
-        rm -rf $HOME/.ssh.bak $HOME/ssh 
-        git clone rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh.git $HOME/ssh
+        cd $HOME   
+        git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
+        cd public_bootstrap/ansible
+        ansible-playbook --ask-vault-password --ask-pass bootstrap_ssh.yml
+        rm -rf $HOME/.ssh.bak  
         mv $HOME/.ssh $HOME/.ssh.bak
-        mv $HOME/ssh $HOME/.ssh
+        mv ssh $HOME/.ssh
         sh $HOME/.ssh/permissions.sh
         eval `ssh-agent`
         ssh-add $HOME/.ssh/id_rsa
+        cd $HOME
+        rm -rf public_bootstrap
     fi
 }
 
