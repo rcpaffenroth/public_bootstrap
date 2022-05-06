@@ -115,6 +115,7 @@ fi
 echo "Get ansible bootstrap"
 #WORKDIR=`mktemp -d`
 WORKDIR=/tmp/ansible-bootstrap
+mkdir -p $WORKDIR
 cd $WORKDIR
 git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
 cd public_bootstrap/ansible
