@@ -53,88 +53,97 @@ function install_prerequisites() {
     fi
 }
 
-function get_ssh_keys() {
-    # Get my ssh keys
-    if [ -f "$HOME/.ssh/id_rsa" ]; then
-        echo "Using existing .ssh"
-    else
-        cd $HOME   
-        git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
-        cd public_bootstrap/ansible
-        ansible-playbook --ask-vault-password --ask-pass bootstrap_ssh.yml
-        rm -rf $HOME/.ssh.bak  
-        mv $HOME/.ssh $HOME/.ssh.bak
-        mv ssh $HOME/.ssh
-        sh $HOME/.ssh/permissions.sh
-        eval `ssh-agent`
-        ssh-add $HOME/.ssh/id_rsa
-        cd $HOME
-        rm -rf public_bootstrap
-    fi
-}
+# function get_ssh_keys() {
+#     # Get my ssh keys
+#     if [ -f "$HOME/.ssh/id_rsa" ]; then
+#         echo "Using existing .ssh"
+#     else
+#         cd $HOME   
+#         git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
+#         cd public_bootstrap/ansible
+#         ansible-playbook --ask-vault-password --ask-pass bootstrap_ssh.yml
+#         rm -rf $HOME/.ssh.bak  
+#         mv $HOME/.ssh $HOME/.ssh.bak
+#         mv ssh $HOME/.ssh
+#         sh $HOME/.ssh/permissions.sh
+#         eval `ssh-agent`
+#         ssh-add $HOME/.ssh/id_rsa
+#         cd $HOME
+#         rm -rf public_bootstrap
+#     fi
+# }
 
-function get_vault_keys() {
-    # Get my vault key
-    if [ -f "$HOME/.rcp/ansible-vault" ]; then
-        echo "Using existing .rcp/ansible-vault"
-    else
-        mkdir $HOME/.rcp
-        chmod 700 $HOME/.rcp
-        rsync -av rcpaffenroth@moc-gateway.rcpaffenroth.org:.rcp/ansible-vault $HOME/.rcp/
-    fi
-}
+# function get_vault_keys() {
+#     # Get my vault key
+#     if [ -f "$HOME/.rcp/ansible-vault" ]; then
+#         echo "Using existing .rcp/ansible-vault"
+#     else
+#         mkdir $HOME/.rcp
+#         chmod 700 $HOME/.rcp
+#         rsync -av rcpaffenroth@moc-gateway.rcpaffenroth.org:.rcp/ansible-vault $HOME/.rcp/
+#     fi
+# }
 
-function checkout_ansible_repository() {
-    # Get ansible repository, since that is where the ansible playbooks are
-    if [ -d "$HOME/projects/ansible" ]; then
-        echo "Using existing projects/ansible"
-    else
-        mkdir -p $HOME/projects
-        git clone git@bitbucket.org:rcpaffenroth/ansible $HOME/projects/ansible
-    fi
-}
+# function checkout_ansible_repository() {
+#     # Get ansible repository, since that is where the ansible playbooks are
+#     if [ -d "$HOME/projects/ansible" ]; then
+#         echo "Using existing projects/ansible"
+#     else
+#         mkdir -p $HOME/projects
+#         git clone git@bitbucket.org:rcpaffenroth/ansible $HOME/projects/ansible
+#     fi
+# }
 
-function ansible_system_setup() {
-    cd $HOME/projects/ansible
-    ansible-playbook -i inventory/localhost.ini playdir/system_setup.yml
-}
+# function ansible_system_setup() {
+#     cd $HOME/projects/ansible
+#     ansible-playbook -i inventory/localhost.ini playdir/system_setup.yml
+# }
 
-function ansible_rcpaffenroth_setup() {
-    cd $HOME/projects/ansible
-    ansible-playbook -i inventory/localhost.ini playdir/rcpaffenroth_setup.yml
-}
+# function ansible_rcpaffenroth_setup() {
+#     cd $HOME/projects/ansible
+#     ansible-playbook -i inventory/localhost.ini playdir/rcpaffenroth_setup.yml
+# }
 
 if [ "$EUID" -eq 0 ]; then 
     echo "running as root"    
+    echo "Installing prerequisites"
+    install_prerequisites
 else
     echo "*not* running as root"
 fi
 
-# First install ssh and git
-if [ "$EUID" -eq 0 ]; then 
-    install_prerequisites
-fi
+echo "Get ansible bootstrap"
+WORKDIR=`mktemp -d`
+cd $WORKDIR
+git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
+cd public_bootstrap/ansible
+ansible-playbook --ask-vault-password --ask-pass bootstrap.yml
 
-# Need my ssh keys.  Note, this might be run as root or as rcpaffenroth
-# and either is ok
-get_ssh_keys
-# Checkout the ansible stuff.  Again, this might either be as root or as rcpaffenroth
-checkout_ansible_repository
+# # First install ssh and git
+# if [ "$EUID" -eq 0 ]; then 
+#     install_prerequisites
+# fi
 
-# We how have ansible ready to go, and can do the system.
-# Internally, this runs as whatever it needs to run as.
-if [ "$EUID" -eq 0 ]; then 
-    get_vault_keys
-    ansible_system_setup
-fi
+# # Need my ssh keys.  Note, this might be run as root or as rcpaffenroth
+# # and either is ok
+# get_ssh_keys
+# # Checkout the ansible stuff.  Again, this might either be as root or as rcpaffenroth
+# checkout_ansible_repository
 
-# Now, the root stuff is done.  We can now setup rcpaffenroth.  
-# You might need to run this *twice*  Once as root and once as rcpaffenroth
-if [ "$EUID" -ne 0 ]; then 
-    get_vault_keys
-    eval `ssh-agent`
-    ssh-add
-    ansible_rcpaffenroth_setup
-    source ~/.bashrc
-fi
+# # We how have ansible ready to go, and can do the system.
+# # Internally, this runs as whatever it needs to run as.
+# if [ "$EUID" -eq 0 ]; then 
+#     get_vault_keys
+#     ansible_system_setup
+# fi
+
+# # Now, the root stuff is done.  We can now setup rcpaffenroth.  
+# # You might need to run this *twice*  Once as root and once as rcpaffenroth
+# if [ "$EUID" -ne 0 ]; then 
+#     get_vault_keys
+#     eval `ssh-agent`
+#     ssh-add
+#     ansible_rcpaffenroth_setup
+#     source ~/.bashrc
+# fi
 
