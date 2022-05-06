@@ -40,27 +40,24 @@
         state: present
     - name: Copy user rcpaffenroth key
       # This is my id_ed25519 key
+      # Note: this makes the .ssh as well.
       authorized_key:
         user: rcpaffenroth
         state: present
         key: https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/keys/rcpaffenroth.pub
-
-    # - name: Create .ssh directory
-    #   file:
-    #     path: $HOME/.ssh
-    #     state: directory
-    #     mode: "700"
     - name: Make the private key file
+      become: true
+      become_user: rcpaffenroth
       lineinfile:
-        user: rcpaffenroth
         dest: $HOME/.ssh/id_ed25519
         state: present
         line: "{{ ssh_private }}"
         mode: "600"
         create: yes
     - name: Make the public key file
+      become: true
+      become_user: rcpaffenroth
       lineinfile:
-        user: rcpaffenroth
         dest: $HOME/.ssh/id_ed25519.pub
         state: present
         line: "{{ ssh_public }}"
