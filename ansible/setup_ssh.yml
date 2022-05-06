@@ -1,13 +1,10 @@
 ---
 - name: Bootstrap ssh keys
-  # This does the setup of the user rcpaffenroth and makes sure
-everything
+  # This does the setup of the user rcpaffenroth and makes sure everything
   # is current for then.  Note, this does not require root.
   hosts: localhost
   become: false
   gather_facts: false
-  environment:
-
   tasks:
     - name: Get ssh
       git:
