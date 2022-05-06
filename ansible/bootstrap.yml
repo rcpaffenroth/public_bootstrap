@@ -50,7 +50,6 @@
     #     path: $HOME/.ssh
     #     state: directory
     #     mode: "700"
-
     - name: Make the private key file
       lineinfile:
         user: rcpaffenroth
@@ -59,7 +58,6 @@
         line: "{{ ssh_private }}"
         mode: "600"
         create: yes
-
     - name: Make the public key file
       lineinfile:
         user: rcpaffenroth

@@ -113,7 +113,8 @@ else
 fi
 
 echo "Get ansible bootstrap"
-WORKDIR=`mktemp -d`
+#WORKDIR=`mktemp -d`
+WORKDIR=/tmp/ansible-bootstrap
 cd $WORKDIR
 git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
 cd public_bootstrap/ansible
