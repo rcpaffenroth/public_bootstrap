@@ -1,0 +1,72 @@
+---
+- name: Bootstrap
+  # This does the setup of the user rcpaffenroth and makes sure everything  
+  # is correct.  
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Include vault variables
+      include_vars:
+        file: vault.yml
+    - name: Ensure group "admin" exists
+      ansible.builtin.group:
+        name: admin
+        state: present
+    - name: Ensure group "docker" exists
+      ansible.builtin.group:
+        name: docker
+        state: present
+    - name: Install sudo
+      apt:
+        state: present
+        pkg:
+          - sudo
+    - name: Allow 'admin' group to have passwordless sudo
+      # The idea is that some users, like serviceuser, do not have a password
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: "^%admin"
+        line: "%admin ALL=(ALL) NOPASSWD: ALL"
+        validate: "visudo -cf %s"
+    - name: Add the user 'rcpaffenroth'
+      # Clear that this does I think :-)
+      ansible.builtin.user:
+        name: rcpaffenroth
+        comment: My personal account
+        # uid: 1000
+        groups: admin, dockerb
+        state: present
+    - name: Copy user rcpaffenroth key
+      # This is my id_ed25519 key
+      authorized_key:
+        user: rcpaffenroth
+        state: present
+        key: https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/keys/rcpaffenroth.pub
+
+    # - name: Create .ssh directory
+    #   file:
+    #     path: $HOME/.ssh
+    #     state: directory
+    #     mode: "700"
+
+    - name: Make the private key file
+      lineinfile:
+        user: rcpaffenroth
+        dest: $HOME/.ssh/id_ed25519
+        state: present
+        line: "{{ ssh_private }}"
+        mode: "600"
+        create: yes
+
+    - name: Make the public key file
+      lineinfile:
+        user: rcpaffenroth
+        dest: $HOME/.ssh/id_ed25519.pub
+        state: present
+        line: "{{ ssh_public }}"
+        mode: "600"
+        create: yes
+
+        
