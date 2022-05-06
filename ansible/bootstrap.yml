@@ -36,7 +36,7 @@
         name: rcpaffenroth
         comment: My personal account
         # uid: 1000
-        groups: admin, dockerb
+        groups: admin, docker
         state: present
     - name: Copy user rcpaffenroth key
       # This is my id_ed25519 key
