@@ -37,7 +37,7 @@
         comment: My personal account
         # uid: 1000
         groups: admin, docker
-        shell: bash
+        shell: /usr/bin/bash
         state: present
     - name: Copy user rcpaffenroth key
       # This is my id_ed25519 key
