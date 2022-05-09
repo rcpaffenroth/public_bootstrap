@@ -1,8 +1,6 @@
 This is the command to run this script:
 ```
-ansible-playbook --ask-vault-password bootstrap_ssh.yml
-ansible-playbook --ask-pass setup_ssh.yml
+ansible-playbook --ask-pass --ask-vault-password bootstrap.yml
 ```
 
-The password for the vaule is in bitwarden.  Look for "ansible s
-etup".
+The password for the vaule is in bitwarden.  Look for "ansible setup".
