@@ -30,10 +30,10 @@ if [ "$EUID" -eq 0 ]; then
     echo "running as root"    
     echo "Installing prerequisites"
     install_prerequisites
-	echo "Get ansible bootstrap"
-	WORKDIR=`mktemp -d`
-	mkdir -p $WORKDIR
-	cd $WORKDIR
+	# echo "Get ansible bootstrap"
+	# WORKDIR=`mktemp -d`
+	# mkdir -p $WORKDIR
+	# cd $WORKDIR
 	git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
 	cd public_bootstrap/ansible
 	ansible-playbook --ask-vault-password --ask-pass bootstrap.yml
