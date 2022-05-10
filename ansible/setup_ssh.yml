@@ -5,16 +5,22 @@
   hosts: localhost
   become: false
   gather_facts: false
+  become: true
+  become_user: rcpaffenroth
   tasks:
-    - name: Get ssh
-      git:
-        repo: rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh.git
-        dest: ssh
-        accept_hostkey: yes
+    - name: Get the ssh directory    
+      ansible.builtin.git:
+        repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh'
+        dest: $HOME/ssh
         update: yes
+        key_file: $HOME/.ssh/id_ed25519push
 
-    - name: Tell the user what to do next...
-      ansible.builtin.debug:
-        msg:
-          - "You now have an ssh directory"
-          - "You should copy this to .ssh"
+    - name: Copy the ssh directory
+      ansible.builtin.copy:
+        src: $HOME/ssh
+        dest: $HOME/.ssh
+        owner: rcpaffenroth
+        group: rcpaffenroth
+        mode: "700"
+        force: yes
+        
