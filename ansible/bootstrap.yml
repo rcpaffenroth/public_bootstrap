@@ -47,43 +47,46 @@
         # uid: 1000
         groups: admin, docker
         shell: /usr/bin/bash
+        home: /home/rcpaffenroth
         state: present
     - name: Add the vault password to the user 'rcpaffenroth'
       become: true
       become_user: rcpaffenroth
       lineinfile:
-        dest: $HOME/.rcp/vault-password
+        # NOTE, this is $HOME for rcpaffenroth
+        dest: /home/rcpaffenroth/.rcp/vault-password
         state: present
         line: "{{ vault_password }}"
         mode: "600"
         create: yes
 
-    # Note, these two are just temporary, until the real ones are in place
-    - name: Copy user rcpaffenroth key
-      # This is my id_ed25519 key
-      # Note: this makes the .ssh as well.
-      authorized_key:
-        user: rcpaffenroth
-        state: present
-        key: https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/keys/rcpaffenroth.pub
+    # Note, this is just temporary, until the real ones are in place
     - name: Make the private key file
-      become: true
-      become_user: rcpaffenroth
       lineinfile:
+        # NOTE, this is $HOME for root
         dest: $HOME/.ssh/id_ed25519
         state: present
         line: "{{ ssh_private }}"
         mode: "600"
         create: yes
-    # - name: Make the public key file
-    #   become: true
-    #   become_user: rcpaffenroth
-    #   lineinfile:
-    #     dest: $HOME/.ssh/id_ed25519.pub
-    #     state: present
-    #     line: "{{ ssh_public }}"
-    #     mode: "600"
-    #     create: yes
+    - name: Get the ssh directory    
+      ansible.builtin.git:
+        repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh.git'
+        dest: $HOME/ssh
+        update: yes
+        # NOTE, this is $HOME for root
+        key_file: $HOME/.ssh/id_ed25519
+    - name: Copy the ssh directory
+      ansible.builtin.copy:
+        # NOTE, this is $HOME for root
+        src: $HOME/ssh
+        dest: /home/rcpaffenroth/.ssh
+        owner: rcpaffenroth
+        group: rcpaffenroth
+        mode: "700"
+        force: yes
+        
+
 
     
 

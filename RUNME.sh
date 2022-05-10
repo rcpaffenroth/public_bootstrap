@@ -36,8 +36,7 @@ if [ "$EUID" -eq 0 ]; then
 	cd $WORKDIR
 	git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
 	cd public_bootstrap/ansible
-	ansible-playbook --ask-vault-password bootstrap.yml
-	ansible-playbook --ask-pass setup_ssh.yml
+	ansible-playbook --ask-vault-password --ask-pass bootstrap.yml
 else
     echo "You need to run this script as root"
 fi
