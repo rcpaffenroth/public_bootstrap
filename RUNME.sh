@@ -34,10 +34,15 @@ if [ "$EUID" -eq 0 ]; then
 	# WORKDIR=`mktemp -d`
 	# mkdir -p $WORKDIR
 	# cd $WORKDIR
+	cd $HOME
 	git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
 	cd public_bootstrap/ansible
+	git pull
 	ansible-playbook --ask-vault-password bootstrap.yml
-	ansible-playbook --ask-pass setup-ssh.yml
+	eval `ssh-agent -s`
+	# Note, this is $HOME for root
+	ssh-add $HOME/.ssh/id_ed25519
+	ansible-playbook setup-ssh.yml
 else
     echo "You need to run this script as root"
 fi
