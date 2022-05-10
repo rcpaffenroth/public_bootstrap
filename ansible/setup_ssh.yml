@@ -20,3 +20,4 @@
         owner: rcpaffenroth
         group: rcpaffenroth
         mode: '700'
+        recurse: yes
