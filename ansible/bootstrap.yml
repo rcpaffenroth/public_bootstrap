@@ -69,22 +69,6 @@
         line: "{{ ssh_private }}"
         mode: "600"
         create: yes
-    - name: Get the ssh directory    
-      ansible.builtin.git:
-        repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh.git'
-        dest: $HOME/ssh
-        update: yes
-        # NOTE, this is $HOME for root
-        key_file: $HOME/.ssh/id_ed25519
-    - name: Copy the ssh directory
-      ansible.builtin.copy:
-        # NOTE, this is $HOME for root
-        src: $HOME/ssh
-        dest: /home/rcpaffenroth/.ssh
-        owner: rcpaffenroth
-        group: rcpaffenroth
-        mode: "700"
-        force: yes
         
 
 

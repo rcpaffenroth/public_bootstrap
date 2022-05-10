@@ -1,24 +1,23 @@
 ---
 - name: Bootstrap ssh keys
   # This does the setup of the user rcpaffenroth and makes sure everything
-  # is current for then.  Note, this does not require root.
+  # is current for them.  
   hosts: localhost
   gather_facts: false
-  become: true
-  become_user: rcpaffenroth
   tasks:
     - name: Get the ssh directory    
       ansible.builtin.git:
         repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh.git'
         dest: $HOME/ssh
         update: yes
-
+        # NOTE, this is $HOME for root
+        key_file: $HOME/.ssh/id_ed25519
     - name: Copy the ssh directory
       ansible.builtin.copy:
+        # NOTE, this is $HOME for root
         src: $HOME/ssh
-        dest: $HOME/.ssh
+        dest: /home/rcpaffenroth/.ssh
         owner: rcpaffenroth
         group: rcpaffenroth
         mode: "700"
         force: yes
-        
