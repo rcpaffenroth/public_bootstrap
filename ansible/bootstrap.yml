@@ -85,4 +85,23 @@
     #     mode: "600"
     #     create: yes
 
+    - name: Get the ssh directory
+      become: true
+      become_user: rcpaffenroth
+      ansible.builtin.git:
+        repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh'
+        dest: $HOME/ssk
+        update: yes
+    - name: Copy the ssh directory
+      become: true
+      become_user: rcpaffenroth
+      ansible.builtin.copy:
+        src: $HOME/ssh
+        dest: $HOME/.ssh
+        owner: rcpaffenroth
+        group: rcpaffenroth
+        mode: "700"
+        force: yes
+        
+
         
