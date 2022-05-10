@@ -10,6 +10,10 @@
         repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh.git'
         dest: $HOME/ssh
         update: yes
+    - name: Remove the old ssh directory
+      ansible.builtin.file:
+        path: /home/rcpaffenroth/.ssh
+        state: absent
     - name: Copy the ssh directory
       ansible.builtin.copy:
         # NOTE, this is $HOME for root
@@ -18,5 +22,6 @@
         dest: /home/rcpaffenroth/.ssh
         owner: rcpaffenroth
         group: rcpaffenroth
-        mode: "700"
+        mode: "600"
+        directory_mode: "700"
         force: yes
