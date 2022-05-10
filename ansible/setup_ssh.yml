@@ -10,10 +10,9 @@
   tasks:
     - name: Get the ssh directory    
       ansible.builtin.git:
-        repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh'
+        repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh.git'
         dest: $HOME/ssh
         update: yes
-        key_file: $HOME/.ssh/id_ed25519
 
     - name: Copy the ssh directory
       ansible.builtin.copy:
