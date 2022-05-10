@@ -13,7 +13,8 @@
     - name: Copy the ssh directory
       ansible.builtin.copy:
         # NOTE, this is $HOME for root
-        remote_src: $HOME/ssh
+        remote_src: yes
+        src: $HOME/ssh
         dest: /home/rcpaffenroth/.ssh
         owner: rcpaffenroth
         group: rcpaffenroth
