@@ -1,7 +1,16 @@
 ---
 - name: Bootstrap
   # This does the setup of the user rcpaffenroth and makes sure everything  
-  # is correct.  
+  # is correct.  In particular it will make sure:
+  # rcpaffenroth user has the correct home directory
+  # rcpaffenroth user has the correct shell
+  # rcpaffenroth user has the correct group
+  # rcpaffenroth user exists
+  # rcpaffenroth user has the correct uid 
+  # rcpaffenroth/.rcp/vault-password exists
+  # rcpaffenroth/.shh is properly populated
+  # NOTE: This is a bootstrap script and should only be run on localhost.  That is why
+  # setting up the .ssh is safe. 
   hosts: localhost
   gather_facts: false
 
@@ -39,6 +48,17 @@
         groups: admin, docker
         shell: /usr/bin/bash
         state: present
+    - name: Add the vault password to the user 'rcpaffenroth'
+      become: true
+      become_user: rcpaffenroth
+      lineinfile:
+        dest: $HOME/.rcp/vault-password
+        state: present
+        line: "{{ vault_password }}"
+        mode: "600"
+        create: yes
+
+    # Note, these two are just temporary, until the real ones are in place
     - name: Copy user rcpaffenroth key
       # This is my id_ed25519 key
       # Note: this makes the .ssh as well.
@@ -55,14 +75,14 @@
         line: "{{ ssh_private }}"
         mode: "600"
         create: yes
-    - name: Make the public key file
-      become: true
-      become_user: rcpaffenroth
-      lineinfile:
-        dest: $HOME/.ssh/id_ed25519.pub
-        state: present
-        line: "{{ ssh_public }}"
-        mode: "600"
-        create: yes
+    # - name: Make the public key file
+    #   become: true
+    #   become_user: rcpaffenroth
+    #   lineinfile:
+    #     dest: $HOME/.ssh/id_ed25519.pub
+    #     state: present
+    #     line: "{{ ssh_public }}"
+    #     mode: "600"
+    #     create: yes
 
         
