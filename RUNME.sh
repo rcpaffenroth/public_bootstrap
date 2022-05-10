@@ -30,19 +30,12 @@ if [ "$EUID" -eq 0 ]; then
     echo "running as root"    
     echo "Installing prerequisites"
     install_prerequisites
-	# echo "Get ansible bootstrap"
-	# WORKDIR=`mktemp -d`
-	# mkdir -p $WORKDIR
-	# cd $WORKDIR
+	echo "Get ansible bootstrap"
 	cd $HOME
 	git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
 	cd public_bootstrap/ansible
 	git pull
 	ansible-playbook --ask-vault-password bootstrap.yml
-	eval `ssh-agent -s`
-	# Note, this is $HOME for root
-	ssh-add $HOME/.ssh/id_ed25519
-	ansible-playbook setup_ssh.yml
 else
     echo "You need to run this script as root"
 fi

@@ -8,16 +8,13 @@
   # rcpaffenroth user exists
   # rcpaffenroth user has the correct uid 
   # rcpaffenroth/.rcp/vault-password exists
-  # rcpaffenroth/.shh is properly populated
+  # rcpaffenroth/.ssh is properly populated
   # NOTE: This is a bootstrap script and should only be run on localhost.  That is why
   # setting up the .ssh is safe. 
   hosts: localhost
   gather_facts: false
 
   tasks:
-    - name: Include vault variables
-      include_vars:
-        file: vault.yml
     - name: Ensure group "admin" exists
       ansible.builtin.group:
         name: admin
@@ -49,26 +46,14 @@
         shell: /usr/bin/bash
         home: /home/rcpaffenroth
         state: present
-    - name: Add the vault password to the user 'rcpaffenroth'
-      become: true
-      become_user: rcpaffenroth
-      lineinfile:
-        # NOTE, this is $HOME for rcpaffenroth
-        dest: /home/rcpaffenroth/.rcp/vault-password
+    - name: Copy user rcpaffenroth key
+      # This is my id_ed25519 key
+      # Note: this makes the .ssh as well.
+      authorized_key:
+        user: rcpaffenroth
         state: present
-        line: "{{ vault_password }}"
-        mode: "600"
-        create: yes
+        key: https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/keys/rcpaffenroth.pub
 
-    # Note, this is just temporary, until the real ones are in place
-    - name: Make the private key file
-      lineinfile:
-        # NOTE, this is $HOME for root
-        dest: $HOME/.ssh/id_ed25519
-        state: present
-        line: "{{ ssh_private }}"
-        mode: "600"
-        create: yes
         
 
 
