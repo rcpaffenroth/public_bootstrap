@@ -13,7 +13,7 @@
         repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh'
         dest: $HOME/ssh
         update: yes
-        key_file: $HOME/.ssh/id_ed25519push
+        key_file: $HOME/.ssh/id_ed25519
 
     - name: Copy the ssh directory
       ansible.builtin.copy:
