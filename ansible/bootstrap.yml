@@ -92,6 +92,7 @@
         repo: 'rcpaffenroth@moc-gateway.rcpaffenroth.org:repos/ssh'
         dest: $HOME/ssk
         update: yes
+        key_file: $HOME/.ssh/id_ed25519
     - name: Copy the ssh directory
       become: true
       become_user: rcpaffenroth
