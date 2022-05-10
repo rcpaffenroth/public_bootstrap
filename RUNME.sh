@@ -42,6 +42,7 @@ if [ "$EUID" -eq 0 ]; then
 	eval `ssh-agent -s`
 	# Note, this is $HOME for root
 	ssh-add $HOME/.ssh/id_ed25519
+	cd $HOME/public_bootstrap/ansible
 	ansible-playbook setup-ssh.yml
 else
     echo "You need to run this script as root"
