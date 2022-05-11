@@ -1,5 +1,8 @@
 #! /bin/bash
 
+# This script can be run by the root user to do a basic setup.
+# It will install a few prequisites and then setup a rcpaffenroth user.
+
 # This can be gotten using
 #
 #  wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/RUNME.sh 
@@ -12,8 +15,13 @@
 #
 #  apt-get update && apt-get install -y wget && wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/RUNME.sh && bash ./RUNME.sh
 
-# I would like to run as much as possible through ansible.  
-# I have a vault with my private ssh key, and this makes things muich cleaner.
+# Once you have the rcpaffenroth user setup by this script, 
+# there are two ways to proceed:
+# 
+# 1. Run ansible on some already setup host and point at this
+#	 node let it do the rest.
+# 2. Download the additional script below and run it as rcpaffenroth.
+#	wget 
 
 umask 022
 
@@ -29,7 +37,12 @@ function install_prerequisites() {
 if [ "$EUID" -eq 0 ]; then 
     echo "running as root"    
     echo "Installing prerequisites"
-    install_prerequisites
+	export DEBIAN_FRONTEND=noninteractive
+	apt update
+	apt install -y software-properties-common
+	# To get the newest version
+	apt-add-repository --yes --update ppa:ansible/ansible
+	apt install -y ansible git openssh-client
 	echo "Get ansible bootstrap"
 	cd $HOME
 	git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git

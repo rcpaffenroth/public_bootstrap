@@ -2,15 +2,12 @@
 - name: Bootstrap
   # This does the setup of the user rcpaffenroth and makes sure everything  
   # is correct.  In particular it will make sure:
+  # rcpaffenroth user exists
   # rcpaffenroth user has the correct home directory
   # rcpaffenroth user has the correct shell
   # rcpaffenroth user has the correct group
-  # rcpaffenroth user exists
-  # rcpaffenroth user has the correct uid 
-  # rcpaffenroth/.rcp/vault-password exists
-  # rcpaffenroth/.ssh is properly populated
-  # NOTE: This is a bootstrap script and should only be run on localhost.  That is why
-  # setting up the .ssh is safe. 
+  # rcpaffenroth/.ssh has the correct authorized_keys
+  # NOTE: This is a bootstrap script and should only be run on localhost. 
   hosts: localhost
   gather_facts: false
 
