@@ -30,16 +30,13 @@ if [ "$EUID" -eq 0 ]; then
     echo "Installing prerequisites"
 	export DEBIAN_FRONTEND=noninteractive
 	apt update
-	apt install -y software-properties-common
-	# To get the newest version
-	apt-add-repository --yes --update ppa:ansible/ansible
-	apt install -y ansible git openssh-client
+	apt install -y software-properties-common ansible git openssh-client
 	echo "Get ansible bootstrap"
 	cd $HOME
 	git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
 	cd public_bootstrap/ansible
 	git pull
-	ansible-playbook --ask-vault-password bootstrap.yml
+	ansible-playbook bootstrap.yml
 else
     echo "You need to run this script as root"
 fi
