@@ -25,15 +25,6 @@
 
 umask 022
 
-function install_prerequisites() {
-	export DEBIAN_FRONTEND=noninteractive
-	apt update
-	apt install -y software-properties-common
-	# To get the newest version
-	apt-add-repository --yes --update ppa:ansible/ansible
-	apt install -y ansible git openssh-client
-}
-
 if [ "$EUID" -eq 0 ]; then 
     echo "running as root"    
     echo "Installing prerequisites"
