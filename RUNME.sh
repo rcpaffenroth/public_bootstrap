@@ -21,7 +21,7 @@
 # 1. Run ansible on some already setup host and point at this
 #	 node let it do the rest.
 # 2. Download the additional script below and run it as rcpaffenroth.
-#	wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/rcpaffenroth
+#	wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/rcpaffenroth.sh
 umask 022
 
 if [ "$EUID" -eq 0 ]; then 
