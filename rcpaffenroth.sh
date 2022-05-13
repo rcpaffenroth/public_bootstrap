@@ -3,6 +3,7 @@
 # This script can be run by the rcpaffenroth user to do a basic setup.
 # First we get .ssh
 cd $HOME
+rm -rf .ssh.new
 rsync -av rcpaffenroth@haven.rcpaffenroth.org:.ssh .ssh.new
 mv .ssh .ssh.old
 mv .ssh.new .ssh
