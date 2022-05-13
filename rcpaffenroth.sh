@@ -6,7 +6,8 @@ cd $HOME
 rm -rf .ssh.new .ssh.old
 rsync -av rcpaffenroth@haven.rcpaffenroth.org:.ssh .ssh.new
 mv .ssh .ssh.old
-mv .ssh.new .ssh
+mv .ssh.new/.ssh .ssh
+rm -rf .ssh.new
 
 # Next we get .rcp with the keys in there
 rsync -av rcpaffenroth@haven.rcpaffenroth.org:.rcp .
@@ -24,5 +25,6 @@ else
     cd ansible
 fi
 
-bin/update_local_system
+# Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
+ansible-playbook -i inventory/localhost.ini --ask-become-pass playdir/system_setup.yml
 bin/update_local_rcpafferoth
