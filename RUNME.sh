@@ -21,8 +21,7 @@
 # 1. Run ansible on some already setup host and point at this
 #	 node let it do the rest.
 # 2. Download the additional script below and run it as rcpaffenroth.
-#	wget 
-
+#	wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/rcpaffenroth
 umask 022
 
 if [ "$EUID" -eq 0 ]; then 
@@ -39,7 +38,7 @@ if [ "$EUID" -eq 0 ]; then
 	git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
 	cd public_bootstrap/ansible
 	git pull
-	ansible-playbook --ask-vault-password bootstrap.yml
+	ansible-playbook bootstrap.yml
 else
     echo "You need to run this script as root"
 fi
