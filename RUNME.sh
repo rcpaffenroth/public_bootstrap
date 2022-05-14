@@ -1,27 +1,27 @@
 #! /bin/bash
 
 # This script can be run by the root user to do a basic setup.
-# It will install a few prequisites and then setup a rcpaffenroth user.
+# It will install a few prequisites, including an ssh server,  and then setup a rcpaffenroth user.
 
 # This can be gotten using
 #
-#  wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/RUNME.sh 
-#  
-#  or
-#
 #  wget bit.ly/RCPrunme
+#  
+#  or, more verbosely,
+#
+#  wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/RUNME.sh 
 #
 #  To get started from a really clean system
 #
-#  apt-get update && apt-get install -y wget && wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/RUNME.sh && bash ./RUNME.sh
+#  apt-get update && apt-get install -y wget && wget bit.ly/RCPrunme && bash ./RCPrunme
 
 # Once you have the rcpaffenroth user setup by this script, 
 # there are two ways to proceed:
 # 
-# 1. Run ansible on some already setup host and point at this
-#	 node let it do the rest.
+# 1. Run ansible on some already setup host, point at this
+#	 node, and let it do the rest.
 # 2. Download the additional script below and run it as rcpaffenroth.
-#	wget 
+#	wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/rcpaffenroth.sh
 
 umask 022
 
