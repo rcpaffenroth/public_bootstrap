@@ -16,15 +16,13 @@ rsync -av rcpaffenroth@haven.rcpaffenroth.org:.rcp .
 if [ -d "/path/to/dir" ] 
 then
     echo "Using current ansible" 
-    cd projects/ansible
 else
     echo "Downloading ansible"
     mkdir -p projects
     cd projects
     git clone git@bitbucket.org:rcpaffenroth/ansible.git
-    cd ansible
 fi
 
 # Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
-ansible-playbook -i inventory/localhost.ini --ask-become-pass playdir/system_setup.yml
-bin/update_local_rcpafferoth
+cd $HOME/projects/ansible && ansible-playbook -i inventory/localhost.ini --ask-become-pass playdir/system_setup.yml
+cd $HOME/projects/ansible && bin/update_local_rcpaffenroth
