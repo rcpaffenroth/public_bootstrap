@@ -4,13 +4,13 @@
 # First we get .ssh
 cd $HOME
 rm -rf .ssh.new .ssh.old
-rsync -av rcpaffenroth@haven.rcpaffenroth.org:.ssh .ssh.new
+rsync -av rcpaffenroth@mournblade.wpi.edu:.ssh .ssh.new
 mv .ssh .ssh.old
 mv .ssh.new/.ssh .ssh
 rm -rf .ssh.new
 
 # Next we get .rcp with the keys in there
-rsync -av rcpaffenroth@haven.rcpaffenroth.org:.rcp .
+rsync -av rcpaffenroth@mournblade.wpi.edu:.rcp .
 
 # Next we get the rest of the stuff using ansible
 if [ -d "/path/to/dir" ] 
