@@ -3,11 +3,9 @@
 # This script can be run by the rcpaffenroth user to do a basic setup.
 # First we get .ssh
 cd $HOME
-rm -rf .ssh.new .ssh.old
-rsync -av rcpaffenroth@mournblade.wpi.edu:.ssh .ssh.new
-mv .ssh .ssh.old
-mv .ssh.new/.ssh .ssh
-rm -rf .ssh.new
+rsync -av rcpaffenroth@mournblade.wpi.edu:.ssh .ssh_rcp
+ln -s .ssh_rcp/config .ssh/config
+ln -s .ssh_rcp/keys .ssh/keys
 
 # Next we get .rcp with the keys in there
 rsync -av rcpaffenroth@mournblade.wpi.edu:.rcp .
