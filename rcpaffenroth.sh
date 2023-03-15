@@ -1,11 +1,10 @@
 #! /bin/bash
 
 # This script can be run by the rcpaffenroth user to do a basic setup.
-# First we get .ssh
+# First we get ssh keys and configuration
 cd $HOME
 rsync -av rcpaffenroth@mournblade.wpi.edu:.ssh .ssh_rcp
-ln -s .ssh_rcp/config .ssh/config
-ln -s .ssh_rcp/keys .ssh/keys
+bash .ssh_rcp/setup.sh
 
 # Next we get .rcp with the keys in there
 rsync -av rcpaffenroth@mournblade.wpi.edu:.rcp .
