@@ -21,7 +21,7 @@
 # 1. Run ansible on some already setup host, point at this
 #	 node, and let it do the rest.
 # 2. Download the additional script below and run it as rcpaffenroth.
-#	wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/rcpaffenroth.sh
+#	wget https://raw.githubusercontent.com/rcpaffenroth/public_bootstrap/master/rcpaffenroth.sh
 
 umask 022
 
@@ -33,7 +33,7 @@ if [ "$EUID" -eq 0 ]; then
 	apt install -y software-properties-common ansible git openssh-client
 	echo "Get ansible bootstrap"
 	cd $HOME
-	git clone https://bitbucket.org/rcpaffenroth/public_bootstrap.git
+	git clone https://github.com/rcpaffenroth/public_bootstrap.git
 	cd public_bootstrap/ansible
 	git pull
 	ansible-playbook bootstrap.yml
