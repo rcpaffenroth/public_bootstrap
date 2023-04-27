@@ -20,6 +20,6 @@ else
     git clone git@github.com:rcpaffenroth/ansible.git
 fi
 
-s# Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
+# Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
 projects/ansible/bin/update_local_system
 projects/ansible/bin/update_local_rcpaffenroth
