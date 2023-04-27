@@ -9,6 +9,7 @@
   # rcpaffenroth/.ssh has the correct authorized_keys
   # NOTE: This is a bootstrap script and should only be run on localhost. 
   hosts: localhost
+  become: true
   gather_facts: false
 
   tasks:
