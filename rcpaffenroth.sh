@@ -21,7 +21,7 @@ else
 fi
 
 eval `ssh-agent -s`
-ssh-add $HOME/.ssh_rcp/id_rsa
+ssh-add
 # Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
 $HOME/projects/ansible/bin/update_local_system
 $HOME/projects/ansible/bin/update_local_rcpaffenroth
