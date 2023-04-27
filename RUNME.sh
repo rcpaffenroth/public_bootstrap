@@ -41,3 +41,6 @@ else
     echo "You need to run this script as root"
 fi
 
+echo "You can do the following to do the rest:"
+echo "wget https://raw.githubusercontent.com/rcpaffenroth/public_bootstrap/master/rcpaffenroth.sh"
+echo "bash ./rcpaffenroth.sh"
