@@ -21,5 +21,5 @@ else
 fi
 
 # Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
-projects/ansible/bin/update_local_system
-projects/ansible/bin/update_local_rcpaffenroth
+$HOME/projects/ansible/bin/update_local_system
+$HOME/projects/ansible/bin/update_local_rcpaffenroth
