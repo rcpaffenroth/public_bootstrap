@@ -20,6 +20,6 @@ else
     git clone git@github.com:rcpaffenroth/ansible.git
 fi
 
-# Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
-cd $HOME/projects/ansible && ansible-playbook -i inventory/localhost.ini --ask-become-pass playdir/system_setup.yml
-cd $HOME/projects/ansible && bin/update_local_rcpaffenroth
+s# Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
+projects/ansible/bin/update_local_system
+projects/ansible/bin/update_local_rcpaffenroth
