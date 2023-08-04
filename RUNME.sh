@@ -38,7 +38,6 @@ if [ "$EUID" -eq 0 ]; then
 	cd $HOME
 	git clone https://github.com/rcpaffenroth/public_bootstrap.git
 	cd public_bootstrap/ansible
-	git pull
 	ansible-playbook bootstrap.yml
 	# Now the rcpaffenroth user exists, so we can do the rest as that user.
 	# We just give them a copy public_bootstrap and let them run the rest.
