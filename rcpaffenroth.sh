@@ -23,5 +23,7 @@ fi
 eval `ssh-agent -s`
 ssh-add
 # Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
-$HOME/projects/ansible/bin/update_local_system
-$HOME/projects/ansible/bin/update_local_rcpaffenroth
+cd $HOME/projects/ansible
+ansible-galaxy collection install -r requirements.yml
+bin/update_local_system
+bin/update_local_rcpaffenroth
