@@ -5,11 +5,11 @@
 
 # This can be gotten using
 #
-#  wget bit.ly/RCPrunme
+#  wget cutt.ly/RCPrunme
 #  
 #  or, more verbosely,
 #
-#  wget https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/RUNME.sh 
+#  wget https://raw.githubusercontent.com/rcpaffenroth/public_bootstrap/master/RUNME.sh
 #
 #  To get started from a really clean system
 #
@@ -39,7 +39,7 @@ if [ "$EUID" -eq 0 ]; then
 	ansible-playbook bootstrap.yml
 	# Now the rcpaffenroth user exists, so we can do the rest as that user.
 	# We just give them a copy public_bootstrap and let them run the rest.
-	sudo -u rcpaffenroth bash -c "cd $HOME; git clone https://github.com/rcpaffenroth/public_bootstrap.git"
+	sudo -u rcpaffenroth bash -c "cd /home/rcpaffenroth; git clone https://github.com/rcpaffenroth/public_bootstrap.git"
 else
     echo "You need to run this script as root"
 fi
