@@ -44,6 +44,7 @@ else
     echo "You need to run this script as root"
 fi
 
-echo "You can do the following to do the rest:"
-echo "cd $HOME/public_bootstrap"
+echo "You can do something like the following to do the rest:"
+echo "sudo su rcpaffenroth"
+echo "cd /home/rcpaffenroth/public_bootstrap"
 echo "bash ./rcpaffenroth.sh"
