@@ -52,7 +52,7 @@
         user: rcpaffenroth
         state: present
         key: https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/keys/rcpaffenroth.pub
-    - name: Basic small applications for the rcpaffenroth account
+    - name: Python virtual environment support
       apt:
         state: present
         install_recommends: no
