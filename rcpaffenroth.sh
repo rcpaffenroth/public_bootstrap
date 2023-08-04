@@ -27,5 +27,7 @@ cd $HOME/projects/ansible
 # bash setup_venv.sh
 # . venv/bin/activate
 ansible-galaxy collection install -r requirements.yml
-ansible-playbook -i inventory/localhost_venv_python.ini playdir/system_setup.yml
-ansible-playbook -i inventory/localhost_venv_python.ini playdir/rcpaffenroth_setup.yml
+# ansible-playbook -i inventory/localhost_venv_python.ini playdir/system_setup.yml
+# ansible-playbook -i inventory/localhost_venv_python.ini playdir/rcpaffenroth_setup.yml
+ansible-playbook -i inventory/localhost.ini playdir/system_setup.yml
+ansible-playbook -i inventory/localhost.ini playdir/rcpaffenroth_setup.yml
