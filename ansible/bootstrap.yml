@@ -7,6 +7,7 @@
   # rcpaffenroth user has the correct shell
   # rcpaffenroth user has the correct group
   # rcpaffenroth/.ssh has the correct authorized_keys
+  # python3-venv and python3-pip are installed
   # NOTE: This is a bootstrap script and should only be run on localhost. 
   hosts: localhost
   become: true
@@ -51,7 +52,15 @@
         user: rcpaffenroth
         state: present
         key: https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/keys/rcpaffenroth.pub
-
+    - name: Basic small applications for the rcpaffenroth account
+      apt:
+        state: present
+        install_recommends: no
+        update_cache: yes
+        name:
+          # Python venv and pip
+          - python3-venv
+          - python3-pip
         
 
 

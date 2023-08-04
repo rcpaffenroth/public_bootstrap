@@ -30,6 +30,9 @@ if [ "$EUID" -eq 0 ]; then
     echo "Installing prerequisites"
 	export DEBIAN_FRONTEND=noninteractive
 	apt update
+	# Why these?  This ansible is needed for bootstrap.yml, but that is pretty basic, and will work with most
+	# and version of ansible.  Eventually I will install a more recent version of ansible, but for now, this
+	# is a good start.
 	apt install -y software-properties-common ansible git openssh-client
 	echo "Get ansible bootstrap"
 	cd $HOME

@@ -24,6 +24,8 @@ eval `ssh-agent -s`
 ssh-add
 # Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
 cd $HOME/projects/ansible
+bash setup_venv.sh
+. venv/bin/activate
 ansible-galaxy collection install -r requirements.yml
 bin/update_local_system
 bin/update_local_rcpaffenroth
