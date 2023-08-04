@@ -37,10 +37,13 @@ if [ "$EUID" -eq 0 ]; then
 	cd public_bootstrap/ansible
 	git pull
 	ansible-playbook bootstrap.yml
+	# Now the rcpaffenroth user exists, so we can do the rest as that user.
+	# We just give them a copy public_bootstrap and let them run the rest.
+	sudo -u rcpaffenroth bash -c "cd $HOME; git clone https://github.com/rcpaffenroth/public_bootstrap.git"
 else
     echo "You need to run this script as root"
 fi
 
 echo "You can do the following to do the rest:"
-echo "wget https://raw.githubusercontent.com/rcpaffenroth/public_bootstrap/master/rcpaffenroth.sh"
+echo "cd $HOME/public_bootstrap"
 echo "bash ./rcpaffenroth.sh"
