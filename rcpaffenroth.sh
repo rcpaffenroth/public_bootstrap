@@ -3,11 +3,11 @@
 # This script can be run by the rcpaffenroth user to do a basic setup.
 # First we get ssh keys and configuration
 cd $HOME
-rsync -av rcpaffenroth@mournblade.wpi.edu:.ssh_rcp .
+rsync -av rcpaffenroth@setup.rcpaffenroth.org:.ssh_rcp .
 bash .ssh_rcp/setup.sh
 
 # Next we get .rcp with the keys in there
-rsync -av rcpaffenroth@mournblade.wpi.edu:.rcp .
+rsync -av rcpaffenroth@setup.rcpaffenroth.org:.rcp .
 
 # Next we get the rest of the stuff using ansible
 if [ -d "/path/to/dir" ] 
