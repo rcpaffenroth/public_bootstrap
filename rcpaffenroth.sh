@@ -10,20 +10,12 @@ bash .ssh_rcp/setup.sh
 rsync -av rcpaffenroth@setup.rcpaffenroth.org:.rcp .
 
 # Next we get the rest of the stuff using ansible
-if [ -d "/path/to/dir" ] 
-then
-    echo "Using current ansible" 
-else
-    echo "Downloading ansible"
-    mkdir -p projects
-    cd projects
-    git clone git@github.com:rcpaffenroth/ansible.git
-fi
+git clone git@github.com:rcpaffenroth/ansible.git
 
 eval `ssh-agent -s`
 ssh-add
 # Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
-cd $HOME/projects/ansible
+cd ansible
 # bash setup_venv.sh
 # . venv/bin/activate
 ansible-galaxy collection install -r requirements.yml
