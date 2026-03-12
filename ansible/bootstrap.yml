@@ -28,7 +28,7 @@
         name: rcpaffenroth
         comment: My personal account
         # uid: 1000
-        groups: admin, docker
+        groups: admin
         shell: /usr/bin/bash
         home: /home/rcpaffenroth
         state: present
