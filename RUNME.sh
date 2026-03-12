@@ -27,18 +27,30 @@ umask 022
 
 if [ "$EUID" -eq 0 ]; then 
     echo "running as root"    
-    echo "Installing prerequisites"
-	export DEBIAN_FRONTEND=noninteractive
-	apt update
-	# Why these?  This ansible is needed for bootstrap.yml, but that is pretty basic, and will work with most
-	# and version of ansible.  Eventually I will install a more recent version of ansible, but for now, this
-	# is a good start.
-	apt install -y software-properties-common ansible git openssh-client
-	echo "Get ansible bootstrap"
-	cd $HOME
-	git clone https://github.com/rcpaffenroth/public_bootstrap.git
-	cd public_bootstrap/ansible
-	ansible-playbook bootstrap.yml
+	# test that wget is in the path
+	if ! [ -x "$(command -v wget)" ]; then
+	  echo 'Error: wget is not installed.' >&2
+	  exit 1
+	fi
+	# test that ssh is in the path
+	if ! [ -x "$(command -v ssh)" ]; then
+	  echo 'Error: ssh is not installed.' >&2
+	  exit 1
+	fi
+	# test that scp is in the path
+	if ! [ -x "$(command -v scp)" ]; then
+	  echo 'Error: scp is not installed.' >&2
+	  exit 1
+	fi
+	# test that sudo is in the path
+	if ! [ -x "$(command -v sudo)" ]; then
+	  echo 'Error: sudo is not installed.' >&2
+	  exit 1
+	fi
+
+	# Install 
+	wget 
+
 	# Now the rcpaffenroth user exists, so we can do the rest as that user.
 	# We just give them a copy public_bootstrap and let them run the rest.
 	sudo -u rcpaffenroth bash -c "cd /home/rcpaffenroth; git clone https://github.com/rcpaffenroth/public_bootstrap.git"

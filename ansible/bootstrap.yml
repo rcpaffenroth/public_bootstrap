@@ -14,19 +14,6 @@
   gather_facts: false
 
   tasks:
-    - name: Ensure group "admin" exists
-      ansible.builtin.group:
-        name: admin
-        state: present
-    - name: Ensure group "docker" exists
-      ansible.builtin.group:
-        name: docker
-        state: present
-    - name: Install sudo
-      apt:
-        state: present
-        pkg:
-          - sudo
     - name: Allow 'admin' group to have passwordless sudo
       # The idea is that some users, like serviceuser, do not have a password
       lineinfile:
@@ -51,16 +38,7 @@
       authorized_key:
         user: rcpaffenroth
         state: present
-        key: https://bitbucket.org/rcpaffenroth/public_bootstrap/raw/HEAD/keys/rcpaffenroth.pub
-    - name: Python virtual environment support
-      apt:
-        state: present
-        install_recommends: no
-        update_cache: yes
-        name:
-          # Python venv and pip
-          - python3-venv
-          - python3-pip
+        key: 
         
 
 
