@@ -42,7 +42,6 @@ if [ "$EUID" -eq 0 ]; then
 	cd public_bootstrap/ansible
 	ansible-playbook bootstrap.yml
 
-    echo "running as root"    
 	# test that wget is in the path
 	if ! [ -x "$(command -v wget)" ]; then
 	  echo 'Error: wget is not installed.' >&2
