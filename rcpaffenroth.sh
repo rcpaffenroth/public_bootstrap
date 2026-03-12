@@ -5,6 +5,8 @@
 cd $HOME
 rsync -av rcpaffenroth@setup.rcpaffenroth.org:.rcp .
 
+# NEED TO INSTALL gh
+
 # Next we get the rest of the stuff using ansible
 git clone git@github.com:rcpaffenroth/ansible.git
 
