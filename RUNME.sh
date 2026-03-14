@@ -62,15 +62,13 @@ if [ "$EUID" -eq 0 ]; then
 	  echo 'Error: sudo is not installed.' >&2
 	  exit 1
 	fi
-
-	# Now the rcpaffenroth user exists, so we can do the rest as that user.
-	# We just give them a copy public_bootstrap and let them run the rest.
-	sudo -u rcpaffenroth bash -c "cd /home/rcpaffenroth; git clone https://github.com/rcpaffenroth/public_bootstrap.git"
 else
-    echo "You need to run this script as root"
+    echo "You are not running as root, so we will not do the initial setup. You can run this script as root to do the initial setup."
+	echo "Proceeding with the rest of the setup as rcpaffenroth"
 fi
 
-echo "You can do something like the following to do the rest:"
-echo "sudo su rcpaffenroth"
-echo "cd /home/rcpaffenroth/public_bootstrap"
-echo "bash ./rcpaffenroth.sh"
+su rcpaffenroth
+cd $HOME
+git clone https://github.com/rcpaffenroth/public_bootstrap.git
+cd public_bootstrap
+bash ./rcpaffenroth.sh

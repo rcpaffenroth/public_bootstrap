@@ -16,6 +16,9 @@ export GH_TOKEN=$(cat .rcp/github-token)
 gh auth setup-git
 gh repo clone https://github.com/rcpaffenroth/ansible.git
 
+# Clear the token so that we can setup the gh cli directly
+export GH_TOKEN=
+
 eval `ssh-agent -s`
 ssh-add
 # Note, rcpaffenroth does not necessarily have passwordless sudo at this point.
