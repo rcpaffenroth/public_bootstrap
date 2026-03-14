@@ -13,7 +13,8 @@ PATH="$HOME/gh_2.88.1_linux_amd64/bin:$PATH"
 export GH_TOKEN=$(cat .rcp/github-token)
 
 # Next we get the rest of the stuff using ansible
-gh repo clone git@github.com:rcpaffenroth/ansible 
+gh auth setup-git
+gh repo clone https://github.com/rcpaffenroth/ansible.git
 
 eval `ssh-agent -s`
 ssh-add
