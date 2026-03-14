@@ -38,7 +38,7 @@
       authorized_key:
         user: rcpaffenroth
         state: present
-        key: https://github.com/rcpaffenroth/public_bootstrap/blob/master/keys/id_ed25519.pub
+        key: https://raw.githubusercontent.com/rcpaffenroth/public_bootstrap/refs/heads/master/keys/id_ed25519.pub
         
 
 
